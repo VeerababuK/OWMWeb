@@ -2,6 +2,7 @@ package com.veera.owm.web.controller;
 
 import com.veera.owm.api.DataWeatherClient;
 import com.veera.owm.api.UrlConnectionDataWeatherClient;
+import com.veera.owm.api.model.Weather;
 import com.veera.owm.api.model.currentWeather.CurrentWeather;
 import com.veera.owm.api.query.*;
 import com.veera.owm.api.query.currentWeather.CurrentWeatherOneLocationQuery;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class OwmController {
@@ -35,6 +38,7 @@ public class OwmController {
                 .unitFormat(UnitFormat.METRIC)      // in metric units
                 .build();
         CurrentWeather currentWeather = client.getCurrentWeather(currentWeatherOneLocationQuery);
+        model.addAttribute("description", prettyPrint(currentWeather.getWeather()));
         model.addAttribute("prettyPrint", prettyPrint(currentWeather));
         model.addAttribute("weather", currentWeather);
         model.addAttribute("date", currentWeather.getDateTime());
@@ -44,7 +48,7 @@ public class OwmController {
 
     private static String prettyPrint(CurrentWeather currentWeather) {
         return String.format(
-                "<br>&nbsp;&nbsp;Temperature: %.1f &#8451; ( %.1f &#8457; ) <br> " +
+                "&nbsp;&nbsp;Temperature: %.1f &#8451; ( %.1f &#8457; ) <br> " +
                         "&nbsp;&nbsp;Humidity: %.1f %%<br> " +
                         "&nbsp;&nbsp;Pressure: %.1f hPa <br> " +
                         "&nbsp;&nbsp;Wind Speed: %.1f mph<br> " +
@@ -57,6 +61,21 @@ public class OwmController {
                 currentWeather.getWind().getSpeed(),
                 currentWeather.getClouds().getAll()
         );
+    }
+
+    private static String prettyPrint(List<Weather> weatherList) {
+        String description = "";
+        for (int i = 0; i < weatherList.size(); i++) {
+            Weather weather = weatherList.get(i);
+            description = description.concat(weather.getDescription());
+            if (i < weatherList.size() - 1) {
+                description = description.concat(", ");
+            } else {
+                description = description.concat(".");
+            }
+        }
+
+        return description;
     }
 
 }

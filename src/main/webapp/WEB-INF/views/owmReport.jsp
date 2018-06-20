@@ -14,7 +14,8 @@
   <div class="weather">
     <div> Date: ${date}</div>
     <div> ${city}</div>
-    <div> Description: ${prettyPrint}</div>
+    <div> Description: ${description}</div>
+    <div> ${prettyPrint}</div>
     <div> Sunrise: ${weather.systemParameters.sunrise} </div>
     <div> Subset: ${weather.systemParameters.sunset} </div>
   </div>
