@@ -35,7 +35,6 @@ public class OwmController {
                 .unitFormat(UnitFormat.METRIC)      // in metric units
                 .build();
         CurrentWeather currentWeather = client.getCurrentWeather(currentWeatherOneLocationQuery);
-        System.out.println(prettyPrint(currentWeather));
         model.addAttribute("prettyPrint", prettyPrint(currentWeather));
         model.addAttribute("weather", currentWeather);
         model.addAttribute("date", currentWeather.getDateTime());

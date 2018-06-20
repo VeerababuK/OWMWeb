@@ -39,7 +39,6 @@ public class UrlConnectionDataWeatherClient  extends AbstractDataWeatherClient {
                 response.append(line);
             }
         }
-        System.out.print(response.toString());
         return response.toString();
     }
 
