@@ -10,7 +10,26 @@
   <h1>OWM - Report</h1>
   <hr>
 
-  <h2>Your city is ${city}</h2>
+  <h2>Weather Report</h2>
+  <div class="weather">
+    <div> Date: ${date}</div>
+    <div> ${city}</div>
+    <div> Description: ${prettyPrint}</div>
+    <div> Sunrise: ${weather.systemParameters.sunrise} </div>
+    <div> Subset: ${weather.systemParameters.sunset} </div>
+  </div>
+
+  <div class="form">
+      <form action="currentWeather" method="post" onsubmit="return validate()">
+        <table>
+          <tr>
+            <td>Select city name</td>
+            <td><select id="city" name="city"> <option>London</option><option>Hong Kong</option> </select></td>
+            <td><input type="submit" value="Submit"></td>
+          </tr>
+        </table>
+      </form>
+    </div>
 
 </body>
 </html>
